@@ -1,6 +1,6 @@
 'use strict';
 
-const mongoose = require('mogoose');
+const mongoose = require('mongoose');
 const Customer = mongoose.model('Customer');
 
 exports.create = async(data) => {

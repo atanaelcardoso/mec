@@ -44,4 +44,4 @@ validationContract.prototype.isValid = () => {
     return errors.length == 0;
 }
 
-module.exports = validationContract
+module.exports = validationContract;

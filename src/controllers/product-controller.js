@@ -1,6 +1,6 @@
 'use strict'
 
-const ValidationContract = require('../Validators/fluent-validator');
+const validationContract = require('../validators/fluent-validator');
 const repository = require('../repositories/product-repository');
 const azure = require('azure-storage');
 const guid = require('guid');
@@ -51,20 +51,20 @@ exports.getByTag = async(req, res, next) => {
 }
 
 exports.post = async(req, res, next) => {
-  let contract = new ValidationContract();
+  let contract = new validationContract();
   contract.hasMinLen(req.body.title, 3, 'O título de conter pelo menos 3 caracteres');
   contract.hasMinLen(req.body.slug, 3, 'O título de conter pelo menos 3 caracteres');
   contract.hasMinLen(req.body.description, 3, 'O título de conter pelo menos 3 caracteres');
 
   // se os dados forem inválidos
   if (!contract.isValid()) {
-    res.status(400).send(contract.error()).end();
+ res.status(400).send(contract.error()).end();
     return;
   }
   
-  try {
-    // cria o Blob Service
-    const blobSvc = azure.createBlobService(config.containerConnectionString);
+  try { 
+     // cria o Blob Service
+    //const blobSvc = azure.createBlobService(config.containerConnectionString);
 
     let filename = guind.raw().toString() + '.jpg';
     let rawdata = req.body.image;
@@ -80,7 +80,6 @@ exports.post = async(req, res, next) => {
         filename = 'default-product.png'
       }
     });
-    
     await repository.create({
       title: req.body.title,
       slug: req.body.slug,
@@ -89,12 +88,11 @@ exports.post = async(req, res, next) => {
       active: true,
       tags: req.body.tags,
       image: 'coloca imagem' + filename
-    //coloca imagem
-    });
-   res.status(201).send({ 
+    });  //coloca imagem http
+    res.status(201).send({ 
       message: 'Produto cadasdrado com sucesso'
    });
-  }  catch (e) {
+  } catch (e) {
       res.status(500).send({
       message: 'Falha ao processar sua requisicao'
     });
@@ -122,7 +120,7 @@ exports.delete = async(req, res, next) => {
     });
   } catch (e) {
       res.status(500).send({
-      message: 'Falha ao processar sua requisicoa'
+      message: 'Falha ao remover o produto'
     });
   }
 };

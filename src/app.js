@@ -13,7 +13,7 @@ mongoose.connect('config.connectionString');
 
 // carrega os models
 const Product = require('./models/product');
-const customer = require('./models/customer');
+const Customer = require('./models/customer');
 const Order = require('./models/order');
 
 //carega as routes
