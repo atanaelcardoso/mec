@@ -17,7 +17,7 @@ const schema = new Schema({
     required: true,
     defult: Date.now
   },
-   status: {
+  status: {
     type: String,
     required: true,
     enum: ['created', 'done'],
@@ -33,7 +33,7 @@ const schema = new Schema({
       type: Number,
       required: true
     },
-     product: {
+    product: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Product'
     }

@@ -2,7 +2,7 @@
 const jwt = require('jsonwebtoken');
 
 exports.generateToken = async (data) => {
-  return jwt.sign(data,global.SALT_KEY, { expiresIn: '1d'});
+  return jwt.sign(data, global.SALT_KEY, { expiresIn: '1d' });
 }
 
 exports.decodeToken = async (token) => {
@@ -10,15 +10,15 @@ exports.decodeToken = async (token) => {
   return data;
 }
 
-exports.authorize = function (req, res, next) {
-  var token = req.body.token || req.query.token || req.headers ['x-access-token'];
+exports.authorize = function(req, res, next) {
+  var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
   if (!token) {
     res.status(401).json({
-      messagem: 'Acesso Restrito' 
+      messagem: 'Acesso Restrito'
     });
   } else {
-    jwt.verify(token, global.SALT_KEY, function (error, decoded) {
+    jwt.verify(token, global.SALT_KEY, function(error, decoded) {
       if (error) {
         res.status(401).json({
           message: 'Token Inválido'
@@ -30,21 +30,21 @@ exports.authorize = function (req, res, next) {
   }
 };
 
-exports.isAdmin = function (req, res, next) {
-  var token = req.body.token || req.query.token || req.headers ['x-access-token'];
+exports.isAdmin = function(req, res, next) {
+  var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
   if (!token) {
     res.status(401).json({
-      messagem: 'Token Inválido' 
+      messagem: 'Token Inválido'
     });
   } else {
-    jwt.verify(token, global.SALT_KEY, function (error, decoded) {
+    jwt.verify(token, global.SALT_KEY, function(error, decoded) {
       if (error) {
         res.status(401).json({
           message: 'Token Inválido'
         });
       } else {
-        if(decod.roles.includes('admin')) {
+        if (decod.roles.includes('admin')) {
           next();
         } else {
           res.status(403).json({

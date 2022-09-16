@@ -9,12 +9,12 @@ const app = express();
 const router = express.Router();
 
 // connecta ao banco
-mongoose.connect('config.connectionString');
+mongoose.connect(config.connectionString);
 
 // carrega os models
-const Product = require('./models/product');
-const Customer = require('./models/customer');
-const Order = require('./models/order');
+require('./models/product');
+require('./models/customer');
+require('./models/order');
 
 //carega as routes
 const indexRoute = require('./routes/index-route');
@@ -31,9 +31,9 @@ app.use(bodyParser.urlencoded({
 
 // Habilita o cors
 app.use(function (req, res, next){
-  res.header('Access-Controle-Allow-Origin', '*')
-  res.header('Access-Controle-Allow-Headers', 'Origin, x-Requested-with, Content-Type, Accept, x-access-token');
-  res.header('Access-Controle-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Headers', 'Origin, x-Requested-with, Content-Type, Accept, x-access-token');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   next();
 });
 

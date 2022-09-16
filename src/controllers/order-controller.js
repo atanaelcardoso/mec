@@ -1,7 +1,7 @@
 'use strict'
 
 const repository = require('../repositories/order-repository');
-const guid = require('quid');
+const guid = require('guid');
 const authService = require('../services/auth-service');
 
 exports.get = async(req, res, next) => {
