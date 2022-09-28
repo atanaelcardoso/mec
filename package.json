@@ -20,6 +20,8 @@
     "node-domexception": "^1.0.0",
     "node-fetch": "^3.2.6",
     "sendgrid": "^5.2.3",
+    "sqlite": "^4.1.2",
+    "sqlite3": "^5.1.1",
     "web-streams-polyfill": "^3.2.1"
   },
   "scripts": {

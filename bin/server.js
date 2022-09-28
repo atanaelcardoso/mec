@@ -1,13 +1,18 @@
 'use strict';
 
-const app = require('../src/app');
+//import {openDb} from '..src/config.js';
+
 const debug = require('debug')('balta:server');
 const http = require('http');
+const app = require('../src/app.js');
+
+//openDb();
 
 const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 const server = http.createServer(app);
+
 
 server.listen(port);
 server.on('error', onError);
@@ -35,14 +40,14 @@ function onError(error) {
 
   const bind = typeof port === 'string' ?
     'pipe' + port :
-    'port' + port ;
+    'port' + port;
 
   switch (error.code) {
-    case 'EACCES' :
+    case 'EACCES':
       console.error(bind + ' reqires elevated privileges');
       process.exit(1);
       break;
-    case 'EADDRINUSE':  
+    case 'EADDRINUSE':
       console.error(bind + ' is already in use');
       process.exit(1);
       break;
@@ -54,7 +59,7 @@ function onError(error) {
 function onListening() {
   const addr = server.address();
   const bind = typeof addr === 'string'
-     ? 'pipe' + addr
-     : 'port' + addr.port;
+    ? 'pipe' + addr
+    : 'port' + addr.port;
   debug('Listening on ' + bind);
 }
